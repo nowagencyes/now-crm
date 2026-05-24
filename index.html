@@ -1,111 +1,250 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NOW Agency CRM</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#0b0b0b;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      overflow:hidden;
+    }
+
+    .bg{
+      position:absolute;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at top left,#ff660020,transparent 30%),
+      radial-gradient(circle at bottom right,#ff660020,transparent 30%),
+      #0b0b0b;
+    }
+
+    .card{
+      position:relative;
+      width:420px;
+      max-width:90%;
+      padding:40px;
+      border-radius:30px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(15px);
+      text-align:center;
+      box-shadow:0 0 40px rgba(255,102,0,0.15);
+    }
+
+    .logo{
+      width:90px;
+      height:90px;
+      margin:0 auto 25px;
+      border-radius:25px;
+      background:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    .logo img{
+      width:70%;
+    }
+
+    h1{
+      color:#ff6600;
+      font-size:46px;
+      margin-bottom:15px;
+      font-weight:800;
+    }
+
+    p{
+      color:#ddd;
+      margin-bottom:35px;
+      line-height:1.5;
+      font-size:20px;
+    }
+
+    input{
+      width:100%;
+      padding:18px;
+      margin-bottom:18px;
+      border-radius:18px;
+      border:2px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.03);
+      color:white;
+      font-size:17px;
+      outline:none;
+    }
+
+    input:focus{
+      border:2px solid #ff6600;
+    }
+
+    .buttons{
+      display:flex;
+      gap:15px;
+      margin-top:10px;
+    }
+
+    button{
+      flex:1;
+      padding:16px;
+      border:none;
+      border-radius:18px;
+      font-size:17px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .login{
+      background:#ff6600;
+      color:white;
+      box-shadow:0 0 20px rgba(255,102,0,0.5);
+    }
+
+    .login:hover{
+      transform:translateY(-2px);
+    }
+
+    .register{
+      background:#555;
+      color:white;
+    }
+
+    #status{
+      margin-top:20px;
+      color:#ff6600;
+      font-size:15px;
+    }
+
+    @media(max-width:600px){
+
+      h1{
+        font-size:34px;
+      }
+
+      p{
+        font-size:16px;
+      }
+
+      .buttons{
+        flex-direction:column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <section id="auth-screen" class="auth-screen">
-    <div class="auth-card">
-      <img src="assets/now-logo.png" alt="NOW Agency" class="auth-logo">
-      <h1>NOW Agency CRM</h1>
-      <p>Acceso privado para gestionar clientes, facturas, pagos y producción.</p>
-      <input id="auth-email" type="email" placeholder="Email">
-      <input id="auth-password" type="password" placeholder="Contraseña">
-      <button id="login-btn">Entrar</button>
-      <button id="signup-btn" class="secondary">Crear usuario</button>
-      <small id="auth-msg"></small>
-    </div>
-  </section>
 
-  <div id="app" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand">
-        <img src="assets/now-logo.png" alt="NOW">
-        <div><h2>NOW</h2><span>Agency CRM</span></div>
-      </div>
-      <nav>
-        <button data-view="dashboard" class="active">Dashboard</button>
-        <button data-view="clientes">Clientes</button>
-        <button data-view="facturas">Facturas</button>
-        <button data-view="pagos">Pagos</button>
-        <button data-view="proyectos">Producción</button>
-        <button data-view="rrss">Redes Sociales</button>
-        <button data-view="accesos">Accesos</button>
-      </nav>
-      <button id="logout-btn" class="logout">Salir</button>
-    </aside>
+<div class="bg"></div>
 
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <p>Creative Agency Management</p>
-          <h1 id="page-title">Dashboard</h1>
-        </div>
-        <button id="add-btn">+ Nuevo</button>
-      </header>
+<div class="card">
 
-      <section id="dashboard" class="view active-view">
-        <div class="metrics">
-          <div class="card metric"><span>Clientes</span><strong id="kpi-clientes">0</strong></div>
-          <div class="card metric"><span>Facturado</span><strong id="kpi-facturado">0€</strong></div>
-          <div class="card metric"><span>Pendiente</span><strong id="kpi-pendiente">0€</strong></div>
-          <div class="card metric"><span>Proyectos</span><strong id="kpi-proyectos">0</strong></div>
-        </div>
-        <div class="grid">
-          <div class="card large">
-            <div class="card-head"><h3>Clientes recientes</h3><span>Live</span></div>
-            <table><thead><tr><th>Cliente</th><th>Empresa</th><th>Servicio</th><th>Estado</th></tr></thead><tbody id="dash-clientes"></tbody></table>
-          </div>
-          <div class="card">
-            <div class="card-head"><h3>Facturación</h3><span>Resumen</span></div>
-            <div class="bars"><div style="height:55%"></div><div style="height:80%"></div><div style="height:40%"></div><div style="height:90%"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="clientes" class="view">
-        <div class="card"><div class="card-head"><h3>Clientes</h3><span>Base de datos</span></div><div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Empresa</th><th>Teléfono</th><th>Email</th><th>Instagram</th><th>Servicio</th><th>Estado</th><th></th></tr></thead><tbody id="clientes-body"></tbody></table></div></div>
-      </section>
-
-      <section id="facturas" class="view">
-        <div class="card"><div class="card-head"><h3>Facturas</h3><span>IGIC Canarias</span></div><div class="table-wrap"><table><thead><tr><th>Nº</th><th>Cliente</th><th>Concepto</th><th>Base</th><th>IGIC</th><th>Total</th><th>Estado</th><th></th></tr></thead><tbody id="facturas-body"></tbody></table></div></div>
-      </section>
-
-      <section id="pagos" class="view">
-        <div class="card"><div class="card-head"><h3>Pagos</h3><span>Vencimientos</span></div><div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Servicio</th><th>Importe</th><th>Fecha</th><th>Estado</th><th></th></tr></thead><tbody id="pagos-body"></tbody></table></div></div>
-      </section>
-
-      <section id="proyectos" class="view">
-        <div class="card"><div class="card-head"><h3>Producción</h3><span>Proyectos</span></div><div class="table-wrap"><table><thead><tr><th>Proyecto</th><th>Cliente</th><th>Tipo</th><th>Fecha</th><th>Estado</th><th>Notas</th><th></th></tr></thead><tbody id="proyectos-body"></tbody></table></div></div>
-      </section>
-
-      <section id="rrss" class="view">
-        <div class="card"><div class="card-head"><h3>Redes Sociales</h3><span>Contenido</span></div><div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Instagram</th><th>Pack</th><th>Posts</th><th>Reels</th><th>Estado</th><th></th></tr></thead><tbody id="rrss-body"></tbody></table></div></div>
-      </section>
-
-      <section id="accesos" class="view">
-        <div class="card warning">Por seguridad, no guardes contraseñas sensibles si varias personas entran al CRM. Lo ideal es usar Bitwarden/1Password y aquí guardar solo usuario y nota.</div>
-        <div class="card"><div class="card-head"><h3>Accesos RRSS</h3><span>Privado</span></div><div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Instagram</th><th>TikTok</th><th>Facebook</th><th>Email</th><th>Notas</th><th></th></tr></thead><tbody id="accesos-body"></tbody></table></div></div>
-      </section>
-    </main>
+  <div class="logo">
+    <img src="https://i.imgur.com/9k0K0KZ.png">
   </div>
 
-  <dialog id="modal">
-    <form method="dialog" id="record-form">
-      <h3 id="modal-title">Nuevo registro</h3>
-      <div id="fields"></div>
-      <menu>
-        <button value="cancel" class="secondary">Cancelar</button>
-        <button id="save-btn" value="default">Guardar</button>
-      </menu>
-    </form>
-  </dialog>
+  <h1>NOW Agency CRM</h1>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <p>
+    Acceso privado para gestionar clientes, facturas, pagos y producción.
+  </p>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Contraseña">
+
+  <div class="buttons">
+    <button class="login" onclick="login()">
+      Entrar
+    </button>
+
+    <button class="register" onclick="register()">
+      Crear usuario
+    </button>
+  </div>
+
+  <div id="status"></div>
+
+</div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+
+const SUPABASE_URL = "https://pokrxvtvfrxjicdjrfkv.supabase.co";
+
+const SUPABASE_ANON_KEY = "TU_ANON_KEY_AQUI";
+
+const sb = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+async function register(){
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const status = document.getElementById("status");
+
+  status.innerHTML = "Creando usuario...";
+
+  const { error } = await sb.auth.signUp({
+    email,
+    password
+  });
+
+  if(error){
+    status.innerHTML = error.message;
+    return;
+  }
+
+  status.innerHTML = "Usuario creado correctamente ✅";
+}
+
+async function login(){
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const status = document.getElementById("status");
+
+  status.innerHTML = "Entrando...";
+
+  const { error } = await sb.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+    status.innerHTML = error.message;
+    return;
+  }
+
+  status.innerHTML = "Login correcto ✅";
+
+  setTimeout(()=>{
+    window.location.href = "dashboard.html";
+  },1000);
+}
+
+</script>
+
 </body>
 </html>
+```
